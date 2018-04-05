@@ -17,6 +17,7 @@ xmin[xmin<mean(xmin)]
 xmax[xmax>mean(xmax)]
 
 #F)
+## Nicely done
 DateNames <- c('03Mon18', '04Tue18', '05Wed18', '04Thu18', '05Fri18', '06Sat18', '07Sun18')
 
 names(xmin) <- DateNames
@@ -26,7 +27,9 @@ names(xmax) <- DateNames
 temperatures <- data.frame(xmin,xmax)
 
 #H)
-temperatures <- within(temperatures, { xminFahrenheit <- xmin*9/5+32})
+temperatures <- within(temperatures, { 
+	xminFahrenheit <- xmin*9/5+32
+})
 temperatures
 
 #I)
@@ -36,5 +39,27 @@ xmaxFahrenheit <- xmax*9/5+32
 TemperaturesFahr <- data.frame(xminFahrenheit, xmaxFahrenheit)
 
 #J)
+## Use shortcut notation
+## No need to call the constructor. The subsetting
+## already returns a data frame.
+
 NewDataFrame1 <-data.frame(TemperaturesFahr[c(1,2,3,4,5),])
+
+## Missing exclusion
+
+
+## Easier way to do the above
+
+temperatures <- within(temperatures, {
+  xminFahrenheit <- xmin * (9/5) + 32
+  xmaxFahrenheit <- xmax * (9/5) + 32
+})
+
+temperaturesFahrenheit <- temeratures[, c('xminFahrenheit', 'xmaxFahrenheit)]
+
+## Easier to subset the whole data.frame instead of 
+## doing this for each vector used in its construction
+
+temperaturesFahrenheit[1:5, ]
+temperaturesFahrenheit[-(6:7), ]
 
